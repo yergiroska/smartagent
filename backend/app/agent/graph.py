@@ -1,6 +1,7 @@
 from langchain_groq import ChatGroq
 from langgraph.prebuilt import create_react_agent
 from dotenv import load_dotenv
+from app.agent.tools import get_all_tools
 import os
 
 load_dotenv()
@@ -14,7 +15,7 @@ def get_agent():
 
     agent = create_react_agent(
         model=llm,
-        tools=[],  # aquí irán las herramientas en la Fase 2
+        tools=get_all_tools(),
         prompt="Eres SmartAgent, un asistente personal inteligente. Responde siempre en el idioma del usuario. Sé útil, claro y conciso."
     )
 
