@@ -8,9 +8,12 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 def chat(request: ChatRequest):
     agent = get_agent()
 
-    result = agent.invoke({
-        "messages": [{"role": "user", "content": request.message}]
-    })
+    config = {"configurable": {"thread_id": request.session_id}}
+
+    result = agent.invoke(
+        {"messages": [{"role": "user", "content": request.message}]},
+        config=config
+    )
 
     last_message = result["messages"][-1].content
 
