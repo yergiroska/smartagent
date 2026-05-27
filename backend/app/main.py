@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from app.routers import chat
+from app.routers import conversations
 import os
 
 load_dotenv()
@@ -21,10 +22,11 @@ app.add_middleware(
 )
 
 app.include_router(chat.router)
+app.include_router(conversations.router)
 
 @app.get("/")
 def root():
-    return {"message": "SmartAgent API funcionando Holaaaa ✅"}
+    return {"message": "SmartAgent API funcionando ✅"}
 
 @app.get("/health")
 def health():
