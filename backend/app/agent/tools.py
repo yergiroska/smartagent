@@ -30,8 +30,13 @@ def calculator(expression: str) -> str:
 def get_current_datetime(query: str = "") -> str:
     """Devuelve la fecha y hora actual. Úsala cuando el usuario pregunte qué día es hoy o la hora actual."""
     from datetime import datetime
+    days = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+    months = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
+              "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
     now = datetime.now()
-    return f"Fecha y hora actual: {now.strftime('%A, %d de %B de %Y, %H:%M:%S')}"
+    day_name = days[now.weekday()]
+    month_name = months[now.month - 1]
+    return f"Fecha y hora actual: {day_name}, {now.day} de {month_name} de {now.year}, {now.strftime('%H:%M:%S')}"
 
 def get_all_tools():
     return [
