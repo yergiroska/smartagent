@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import axios from "axios"
 import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 const SESSION_ID = crypto.randomUUID()
 
@@ -53,7 +54,7 @@ export default function Chat() {
         setLoading(true)
 
         if (selectedFile) {
-            // content como objeto estructurado en lugar de string
+            // CAMBIO 1: content como objeto estructurado en lugar de string
             const userMessage = {
                 role: "user",
                 content: {
@@ -127,7 +128,7 @@ export default function Chat() {
 
     const shortId = (id) => id.length > 8 ? id.substring(0, 8) + "..." : id
 
-    // función auxiliar para renderizar el contenido del mensaje
+    // CAMBIO 2: función auxiliar para renderizar el contenido del mensaje
     const renderMessageContent = (msg) => {
         const content = msg.content
 
@@ -147,7 +148,7 @@ export default function Chat() {
             )
         }
 
-        // Mensaje de archivo antiguo
+        // Mensaje de archivo antiguo (string del historial de PostgreSQL, ej: "📄 archivo.pdf — instrucción")
         if (typeof content === "string" && content.startsWith("📄 ")) {
             const withoutIcon = content.slice(3) // quita "📄 "
             const separatorIndex = withoutIcon.indexOf(" — ")
@@ -176,7 +177,7 @@ export default function Chat() {
         }
 
         // Mensaje normal de texto
-        return <ReactMarkdown>{typeof content === "string" ? content : JSON.stringify(content)}</ReactMarkdown>
+        return <ReactMarkdown remarkPlugins={[remarkGfm]}>{typeof content === "string" ? content : JSON.stringify(content)}</ReactMarkdown>
     }
 
     return (
