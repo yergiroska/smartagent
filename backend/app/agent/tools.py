@@ -10,7 +10,7 @@ load_dotenv()
 # Tool 1: Búsqueda web en tiempo real con Tavily
 def get_search_tool():
     return TavilySearchResults(
-        max_results=5,
+        max_results=2,
         tavily_api_key=os.getenv("TAVILY_API_KEY"),
         description="Busca información actualizada en internet. Úsala cuando necesites datos recientes, noticias, precios, eventos actuales o cualquier información que pueda haber cambiado."
     )
